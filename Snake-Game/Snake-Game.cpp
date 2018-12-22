@@ -80,7 +80,7 @@ void Check(char(&arr)[15][30], int L_Let, int L_Num)
 		Fruit_Map--;
 	}
 
-	arr[L_Let][L_Num] = '#';
+	arr[L_Let][L_Num] = '+';
 }
 
 void AlwaysMove(char(&arr)[15][30])
@@ -129,7 +129,7 @@ void arrPrint(char(&arr)[15][30])
 	{
 		std::cout << "              |" << arr[start][0] << arr[start][1] << arr[start][2] << arr[start][3] << arr[start][4] << arr[start][5] << arr[start][6] << arr[start][7] << arr[start][8] << arr[start][9];
 		std::cout << arr[start][10] << arr[start][11] << arr[start][12] << arr[start][13] << arr[start][14] << arr[start][15] << arr[start][16] << arr[start][17] << arr[start][18] << arr[start][19];
-		std::cout << arr[start][20] << arr[start][21] << arr[start][22] << arr[start][23] << arr[start][24] << arr[start][25] << arr[start][26] << arr[start][27] << arr[start][28] << arr[start][29] << "|" << std::endl;
+		std::cout << arr[start][20] << arr[start][21] << arr[start][22] << arr[start][23] << arr[start][24] << arr[start][25] << arr[start][26] << arr[start][27] << arr[start][28] << arr[start][29] << "| \n";
 	}
 	std::cout << "              |______________________________|" << std::endl;
 	std::cout << "              |------------------------------|" << std::endl;
@@ -197,43 +197,43 @@ void arrPrint(char(&arr)[15][30])
 
 void Move(char(&arr)[15][30])
 {
-		if (_kbhit())
+	if (_kbhit())
+	{
+		switch (static_cast<KEYS_2>(_getch()))
 		{
-			switch (static_cast<KEYS_2>(_getch()))
-			{
-			case KEYS_2::W:
-				Choice = UP;
-				break;
+		case KEYS_2::W:
+			Choice = UP;
+			break;
 
-			case KEYS_2::w:
-				Choice = UP;
-				break;
+		case KEYS_2::w:
+			Choice = UP;
+			break;
 
-			case KEYS_2::S:
-				Choice = DOWN;
-				break;
+		case KEYS_2::S:
+			Choice = DOWN;
+			break;
 
-			case KEYS_2::s:
-				Choice = DOWN;
-				break;
+		case KEYS_2::s:
+			Choice = DOWN;
+			break;
 
-			case KEYS_2::A:
-				Choice = LEFT;
-				break;
+		case KEYS_2::A:
+			Choice = LEFT;
+			break;
 
-			case KEYS_2::a:
-				Choice = LEFT;
-				break;
+		case KEYS_2::a:
+			Choice = LEFT;
+			break;
 
-			case KEYS_2::D:
-				Choice = RIGHT;
-				break;
+		case KEYS_2::D:
+			Choice = RIGHT;
+			break;
 
-			case KEYS_2::d:
-				Choice = RIGHT;
-				break;
-			}
+		case KEYS_2::d:
+			Choice = RIGHT;
+			break;
 		}
+	}
 }
 
 int main()
@@ -245,19 +245,19 @@ int main()
 
 	char arr[Height][Width] = { 0 };
 
-	for(int Arr_Height = 0; Arr_Height < 15; Arr_Height++)
+	for (int Arr_Height = 0; Arr_Height < 15; Arr_Height++)
 	{
-		arr[Arr_Height][0] = '+';
-		arr[Arr_Height][29] = '+';
+		arr[Arr_Height][0] = '#';
+		arr[Arr_Height][29] = '#';
 	}
 
-	for ( int Arr_Width = 1; Arr_Width < 30; Arr_Width++)
+	for (int Arr_Width = 1; Arr_Width < 30; Arr_Width++)
 	{
-		arr[0][Arr_Width] = '+';
-		arr[14][Arr_Width] = '+';
+		arr[0][Arr_Width] = '#';
+		arr[14][Arr_Width] = '#';
 	}
 
-	arr[Letter][Number] = '#';
+	arr[Letter][Number] = '+';
 
 	arrPrint(arr);
 
