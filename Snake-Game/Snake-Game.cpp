@@ -53,9 +53,9 @@ void Fruit(char(&arr)[15][30])
 {
 	if (Fruit_Map == 0)
 	{
-		int Fruit_X = rand() % 15;
+		int Fruit_X = 1 + rand() % (14 - 1);
 
-		int Fruit_Y = rand() % 30;
+		int Fruit_Y = 1 + rand() % (29 - 1);
 
 		arr[Fruit_X][Fruit_Y] = 'F';
 
