@@ -26,7 +26,8 @@ enum class KEYS_2
 	A = 65,
 	a = 97,
 	D = 68,
-	d = 100
+	d = 100,
+	Enter = 13
 };
 
 bool GameOver = false;
@@ -47,6 +48,171 @@ void setcur(int x, int y)
 	coord.X = x;
 	coord.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void Show_WASD()
+{
+	if (Choice == 0)
+	{
+		std::cout << "              |               W              |" << std::endl;
+		std::cout << "              |            A  S  D           |" << std::endl;
+	}
+	else if (Choice == UP)
+	{
+		std::cout << "              |               ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+		std::cout << "W";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+		std::cout << "              |" << std::endl;
+		std::cout << "              |            A  S  D           |" << std::endl;
+	}
+	else if (Choice == DOWN)
+	{
+		std::cout << "              |               W              |" << std::endl;
+		std::cout << "              |            A  ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+		std::cout << "S";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+		std::cout << "  D           |" << std::endl;
+	}
+	else if (Choice == LEFT)
+	{
+		std::cout << "              |               W              |" << std::endl;
+		std::cout << "              |            ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+		std::cout << "A";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+		std::cout << "  S  D           |" << std::endl;
+	}
+	else if (Choice == RIGHT)
+	{
+		std::cout << "              |               W              |" << std::endl;
+		std::cout << "              |            A  S  ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+		std::cout << "D";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+		std::cout << "           |" << std::endl;
+	}
+	std::cout << "              |------------------------------|" << std::endl;
+}
+
+void Show_Score()
+{
+	std::cout << "              |------------------------------|" << std::endl;
+	std::cout << "              |   Score: " << Score;
+	if (Score < 10)
+	{
+		std::cout << "                   |" << std::endl;
+	}
+	else if (Score > 9 && Score < 100)
+	{
+		std::cout << "                  |" << std::endl;
+	}
+	else if (Score > 99)
+	{
+		std::cout << "                 |" << std::endl;
+	}
+
+	std::cout << "              |------------------------------|" << std::endl;
+}
+
+int GameOverScreen()
+{
+
+	int GameOverChoice = 1;
+
+GameOver_Sc:
+
+	std::cout << std::endl;
+	std::cout << "               ______________________________ " << std::endl;
+	std::cout << "              |           - SNAKE -          |" << std::endl;
+	std::cout << "              |______________________________|" << std::endl;
+	std::cout << "              |##############################|" << std::endl;
+	std::cout << "              |#                            #|" << std::endl;
+	std::cout << "              |#                            #|" << std::endl;
+	std::cout << "              |#          GAME OVER         #|" << std::endl;
+	std::cout << "              |#                            #|" << std::endl;
+	std::cout << "              |#                            #|" << std::endl;
+	std::cout << "              |#                            #|" << std::endl;
+	if (GameOverChoice == 2)
+	{
+		std::cout << "              |#         Play Again         #|" << std::endl;
+	}
+	else if (GameOverChoice == 1)
+	{
+		std::cout << "              |#   - >   Play Again   < -   #|" << std::endl;
+	}
+
+	std::cout << "              |#                            #|" << std::endl;
+	std::cout << "              |#                            #|" << std::endl;
+	if (GameOverChoice == 1)
+	{
+		std::cout << "              |#            Exit.           #|" << std::endl;
+	}
+	else if (GameOverChoice == 2)
+	{
+		std::cout << "              |#   - >      Exit.     < -   #|" << std::endl;
+	}
+
+	std::cout << "              |#                            #|" << std::endl;
+	std::cout << "              |#                            #|" << std::endl;
+	std::cout << "              |#                            #|" << std::endl;
+	std::cout << "              |##############################|" << std::endl;
+	std::cout << "              |______________________________|" << std::endl;
+	Show_Score();
+
+	Show_WASD();
+
+	std::cout << "              |______________________________|" << std::endl;
+	std::cout << "                              ";
+
+	while (true)
+	{
+		if (_kbhit())
+		{
+			switch (static_cast<KEYS_2>(_getch()))
+			{
+			case KEYS_2::W:
+				GameOverChoice = 1;
+				Choice = UP;
+				setcur(0, 0);
+				goto GameOver_Sc;
+				break;
+
+			case KEYS_2::w:
+				GameOverChoice = 1;
+				Choice = UP;
+				setcur(0, 0);
+				goto GameOver_Sc;
+				break;
+
+			case KEYS_2::S:
+				GameOverChoice = 2;
+				Choice = DOWN;
+				setcur(0, 0);
+				goto GameOver_Sc;
+				break;
+
+			case KEYS_2::s:
+				GameOverChoice = 2;
+				Choice = DOWN;
+				setcur(0, 0);
+				goto GameOver_Sc;
+				break;
+
+			case KEYS_2::Enter:
+				if (GameOverChoice == 1)
+				{
+					return 1;
+				}
+				else if (GameOverChoice == 2)
+				{
+					return 0;
+				}
+				break;
+			}
+		}
+	}
 }
 
 void Fruit(char(&arr)[15][30])
@@ -125,72 +291,20 @@ void arrPrint(char(&arr)[15][30])
 	std::cout << "               ______________________________ " << std::endl;
 	std::cout << "              |           - SNAKE -          |" << std::endl;
 	std::cout << "              |______________________________|" << std::endl;
+
 	for (int start = 0; start < 15; start++)
 	{
 		std::cout << "              |" << arr[start][0] << arr[start][1] << arr[start][2] << arr[start][3] << arr[start][4] << arr[start][5] << arr[start][6] << arr[start][7] << arr[start][8] << arr[start][9];
 		std::cout << arr[start][10] << arr[start][11] << arr[start][12] << arr[start][13] << arr[start][14] << arr[start][15] << arr[start][16] << arr[start][17] << arr[start][18] << arr[start][19];
 		std::cout << arr[start][20] << arr[start][21] << arr[start][22] << arr[start][23] << arr[start][24] << arr[start][25] << arr[start][26] << arr[start][27] << arr[start][28] << arr[start][29] << "| \n";
 	}
+
 	std::cout << "              |______________________________|" << std::endl;
-	std::cout << "              |------------------------------|" << std::endl;
-	std::cout << "              |   Score: " << Score;
-	if (Score < 10)
-	{
-		std::cout << "                   |" << std::endl;
-	}
-	else if (Score > 9 && Score < 100)
-	{
-		std::cout << "                  |" << std::endl;
-	}
-	else if (Score > 99)
-	{
-		std::cout << "                 |" << std::endl;
-	}
 
-	std::cout << "              |------------------------------|" << std::endl;
+	Show_Score();
 
-	if (Choice == 0)
-	{
-		std::cout << "              |               W              |" << std::endl;
-		std::cout << "              |            A  S  D           |" << std::endl;
-	}
-	else if (Choice == UP)
-	{
-		std::cout << "              |               ";
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
-		std::cout << "W";
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-		std::cout << "              |" << std::endl;
-		std::cout << "              |            A  S  D           |" << std::endl;
-	}
-	else if (Choice == DOWN)
-	{
-		std::cout << "              |               W              |" << std::endl;
-		std::cout << "              |            A  ";
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
-		std::cout << "S";
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-		std::cout << "  D           |" << std::endl;
-	}
-	else if (Choice == LEFT)
-	{
-		std::cout << "              |               W              |" << std::endl;
-		std::cout << "              |            ";
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
-		std::cout << "A";
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-		std::cout << "  S  D           |" << std::endl;
-	}
-	else if (Choice == RIGHT)
-	{
-		std::cout << "              |               W              |" << std::endl;
-		std::cout << "              |            A  S  ";
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
-		std::cout << "D";
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-		std::cout << "           |" << std::endl;
-	}
-	std::cout << "              |------------------------------|" << std::endl;
+	Show_WASD();
+
 	std::cout << "              |______________________________|" << std::endl;
 	std::cout << "                              ";
 }
@@ -243,6 +357,8 @@ int main()
 	const int Width = 30;
 	const int Height = 15;
 
+Start:
+
 	char arr[Height][Width] = { 0 };
 
 	for (int Arr_Height = 0; Arr_Height < 15; Arr_Height++)
@@ -268,5 +384,23 @@ int main()
 		Move(arr);
 		AlwaysMove(arr);
 		arrPrint(arr);
+	}
+
+	setcur(0, 0);
+
+	if (GameOverScreen() == 1)
+	{
+		Choice = ZERO;
+		GameOver = false;
+		Number = 4;
+		Letter = 2;
+		Fruit_Map = 0;
+		Score = 0;
+		system("CLS");
+		goto Start;
+	}
+	else
+	{
+		return 0;
 	}
 }
