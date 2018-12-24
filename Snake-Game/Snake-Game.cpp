@@ -34,9 +34,9 @@ bool GameOver = false;
 
 int Fruit_Map = 0;
 
-int Number = 4;
+int x = 2;
 
-int Letter = 2;
+int Y = 4;
 
 int Score = 0;
 
@@ -235,49 +235,49 @@ void Fruit(char(&arr)[15][16])
 
 }
 
-void Check(char(&arr)[15][16], int L_Let, int L_Num)
+void Check(char(&arr)[15][16], int N_x, int N_Y)
 {
-	if (arr[L_Let][L_Num] == '+' || arr[L_Let][L_Num] == '#')
+	if (arr[N_x][N_Y] == '+' || arr[N_x][N_Y] == '#')
 	{
 		GameOver = true;
 	}
-	else if (arr[L_Let][L_Num] == 'F')
+	else if (arr[N_x][N_Y] == 'F')
 	{
 		Score++;
 		Fruit_Map--;
 	}
 
-	arr[L_Let][L_Num] = '+';
+	arr[N_x][N_Y] = '+';
 }
 
 void AlwaysMove(char(&arr)[15][16])
 {
 	if (Choice == UP)
 	{
-		arr[Letter][Number] = ' ';
-		Check(arr, Letter - 1, Number);
-		Letter--;
+		arr[x][Y] = ' ';
+		Check(arr, x - 1, Y);
+		x--;
 		setcur(0, 0);
 	}
 	else if (Choice == DOWN)
 	{
-		arr[Letter][Number] = ' ';
-		Check(arr, Letter + 1, Number);
-		Letter++;
+		arr[x][Y] = ' ';
+		Check(arr, x + 1, Y);
+		x++;
 		setcur(0, 0);
 	}
 	else if (Choice == LEFT)
 	{
-		arr[Letter][Number] = ' ';
-		Check(arr, Letter, Number - 1);
-		Number--;
+		arr[x][Y] = ' ';
+		Check(arr, x, Y - 1);
+		Y--;
 		setcur(0, 0);
 	}
 	else if (Choice == RIGHT)
 	{
-		arr[Letter][Number] = ' ';
-		Check(arr, Letter, Number + 1);
-		Number++;
+		arr[x][Y] = ' ';
+		Check(arr, x, Y + 1);
+		Y++;
 		setcur(0, 0);
 	}
 	else if (Choice == ZERO)
@@ -363,19 +363,19 @@ Start:
 
 	char arr[Height][Width] = { 0 };
 
-	for (int Arr_Height = 0; Arr_Height < 15; Arr_Height++)
+	for (int Arr_X = 0; Arr_X < 15; Arr_X++)
 	{
-		arr[Arr_Height][0] = '#';
-		arr[Arr_Height][15] = '#';
+		arr[Arr_X][0] = '#';
+		arr[Arr_X][15] = '#';
 	}
 
-	for (int Arr_Width = 1; Arr_Width < 16; Arr_Width++)
+	for (int Arr_Y = 1; Arr_Y < 16; Arr_Y++)
 	{
-		arr[0][Arr_Width] = '#';
-		arr[14][Arr_Width] = '#';
+		arr[0][Arr_Y] = '#';
+		arr[14][Arr_Y] = '#';
 	}
 
-	arr[Letter][Number] = '+';
+	arr[x][Y] = '+';
 
 	arrPrint(arr);
 
@@ -394,8 +394,8 @@ Start:
 	{
 		Choice = ZERO;
 		GameOver = false;
-		Number = 4;
-		Letter = 2;
+		Y = 4;
+		x = 2;
 		Fruit_Map = 0;
 		Score = 0;
 		system("CLS");
